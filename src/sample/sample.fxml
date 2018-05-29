@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<GridPane alignment="center" hgap="10" prefHeight="400.0" prefWidth="600.0" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <Pane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <HBox layoutX="3.0" layoutY="1.0" prefHeight="400.0" prefWidth="600.0">
+               <children>
+                  <TableView fx:id="tvData" prefHeight="400.0" prefWidth="400.0">
+                    <columns>
+                      <TableColumn fx:id="tcId" prefWidth="44.0" text="№" />
+                      <TableColumn fx:id="tcTitle" prefWidth="187.0" text="Название" />
+                        <TableColumn fx:id="tcAuthor" prefWidth="118.0" text="Автор(ы)" />
+                        <TableColumn fx:id="tcYear" prefWidth="51.0" text="Год" />
+                    </columns>
+                  </TableView>
+                  <VBox prefHeight="400.0" prefWidth="197.0" spacing="2.0">
+                     <children>
+                        <Label text="№" />
+                        <TextField fx:id="tfId" />
+                        <Label text="Название" />
+                        <TextField fx:id="tfTitle" />
+                        <Label text="Автор(ы)" />
+                        <TextField fx:id="tfAuthor" />
+                        <Label text="Год" />
+                        <TextField fx:id="tfYear" />
+                        <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#onClickAdd" text="Добавить" />
+                        <Button fx:id="btnOpen" mnemonicParsing="false" onAction="#onClickOpen" text="Открыть" />
+                        <Button fx:id="btnSelect" mnemonicParsing="false" onAction="#onClickSelect" text="Отобрать" />
+                     </children>
+                     <padding>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+   </children>
+</GridPane>
