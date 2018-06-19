@@ -1,5 +1,8 @@
 package sample;
 
+import eu.hansolo.tilesfx.Tile;
+import eu.hansolo.tilesfx.TileBuilder;
+import eu.hansolo.tilesfx.skins.BarChartItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -9,6 +12,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -57,6 +62,15 @@ public class Controller {
             FXCollections.observableArrayList();
     private FilteredList<Book> filteredData;
 
+
+    @FXML
+    private Pane barChartPane;
+    private Tile barChartTile;
+    private BarChartItem barChartItemOld;
+    private BarChartItem barChartItem18;
+    private BarChartItem barChartItem19;
+    private BarChartItem barChartItem20;
+
     @FXML
     public void initialize() {
         tcId.setCellValueFactory(new PropertyValueFactory<Book,Integer>("id"));
@@ -64,6 +78,28 @@ public class Controller {
         tcAuthor.setCellValueFactory(new PropertyValueFactory<Book,String>("author"));
         tcYear.setCellValueFactory(new PropertyValueFactory<Book,Integer>("year"));
         tvData.setItems(bookData);
+
+
+        barChartItemOld=new BarChartItem("До 18 в.",15,Tile.ORANGE);
+        barChartItem18=new BarChartItem("18 в.",25,Tile.BLUE);
+        barChartItem19=new BarChartItem("19 в.",35,Tile.GREEN);
+        barChartItem20=new BarChartItem("20 в.",45,Tile.MAGENTA);
+
+
+
+        barChartTile= TileBuilder.create()
+                .prefSize(150,150)
+                .skinType(Tile.SkinType.BAR_CHART)
+                .title("Статистика")
+                .text("")
+                .textColor(Color.BLACK)
+                .titleColor(Color.BLACK)
+                .valueColor(Color.BLUEVIOLET)
+                .backgroundColor(Color.rgb(244,244,244))
+                .barChartItems(barChartItemOld,barChartItem18,barChartItem19,barChartItem20)
+                .build();
+        barChartPane.getChildren().add(barChartTile);
+
     }
     @FXML
     public void onClickAdd() {
@@ -108,6 +144,15 @@ public class Controller {
         filteredData=new FilteredList<Book>(bookData,
                 book -> {if(book.getYear()>1800)
                            return true; else return false;});
-        tvData.setItems(filteredData);
+        //tvData.setItems(filteredData);
+
+
+        barChartItemOld.setValue(bookData.stream().filter(book ->book.getYear()<1700).count());
+        barChartItem18.setValue(bookData.stream().filter(book ->book.getYear()>=1700 && book.getYear()<1800).count());
+        barChartItem19.setValue(bookData.stream().filter(book ->book.getYear()>=1800 && book.getYear()<1900).count());
+        barChartItem20.setValue(bookData.stream().filter(book ->book.getYear()>=1900 && book.getYear()<2000).count());
+
+
+
     }
 }
