@@ -65,6 +65,7 @@ public class Controller {
 
     @FXML
     private Pane barChartPane;
+
     private Tile barChartTile;
     private BarChartItem barChartItemOld;
     private BarChartItem barChartItem18;
@@ -80,10 +81,10 @@ public class Controller {
         tvData.setItems(bookData);
 
 
-        barChartItemOld=new BarChartItem("До 18 в.",15,Tile.ORANGE);
-        barChartItem18=new BarChartItem("18 в.",25,Tile.BLUE);
-        barChartItem19=new BarChartItem("19 в.",35,Tile.GREEN);
-        barChartItem20=new BarChartItem("20 в.",45,Tile.MAGENTA);
+        barChartItemOld=new BarChartItem("До 18 в.",0,Tile.ORANGE);
+        barChartItem18=new BarChartItem("18 в.",0,Tile.BLUE);
+        barChartItem19=new BarChartItem("19 в.",0,Tile.GREEN);
+        barChartItem20=new BarChartItem("20 в.",0,Tile.MAGENTA);
 
 
 
@@ -115,7 +116,7 @@ public class Controller {
         fileChooser.getExtensionFilters().
          add(new FileChooser.ExtensionFilter("JSON","*.json"));
         File selectedFile = fileChooser.showOpenDialog(new Stage());
-        importJSON(selectedFile.getName());
+        importJSON(selectedFile.getAbsolutePath());
     }
 
     public void importJSON(String filename) {
@@ -142,9 +143,9 @@ public class Controller {
     @FXML
     public void onClickSelect() {
         filteredData=new FilteredList<Book>(bookData,
-                book -> {if(book.getYear()>1800)
-                           return true; else return false;});
-        //tvData.setItems(filteredData);
+        book -> {if(book.getYear()>1800)
+            return true; else return false;});
+        tvData.setItems(filteredData);
 
 
         barChartItemOld.setValue(bookData.stream().filter(book ->book.getYear()<1700).count());
